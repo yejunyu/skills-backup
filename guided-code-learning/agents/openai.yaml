@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guided Code Learning"
+  short_description: "通过讲解、练习、代码提交和追问掌握技术主题"
+  default_prompt: "Use $guided-code-learning to teach me a technical topic through explanation, small coding tasks, code review, and questioning."
