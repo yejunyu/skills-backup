@@ -40,6 +40,8 @@ npx skills add https://github.com/humanlayer/skills -g -y --skill show-me
 # Codex Ponytail:
 #   codex plugin marketplace add DietrichGebert/ponytail
 #   codex plugin add ponytail@ponytail
+# pstack（Cursor 插件，聊天里）:
+#   /add-plugin pstack
 # AnySearch（会要你粘贴 API key）:
 # ./scripts/install-anysearch.sh
 ```
@@ -185,6 +187,14 @@ node ponytail/scripts/cursor-hooks.js install
 
 对话里发 `/ponytail lite`、`/ponytail full`、`/ponytail ultra` 或 `/ponytail off` 切换强度。需要本机有 `node`。
 
+#### pstack
+
+来源：[cursor/plugins `pstack/`](https://github.com/cursor/plugins/tree/main/pstack)。Cursor 插件，不要用 `npx skills add`。
+
+聊天里 `/add-plugin pstack`。日常只记两个命令：先 `/setup-pstack` 选模型，再 `/poteto-mode` 说目标和可检查的完成条件。其余 skill 由 mode 按 playbook 调用。新话题要说 `new task`，否则会接着上一件做。
+
+用法、和本仓库其它 skill 的接法见 [`research/pstack.md`](./research/pstack.md)。
+
 #### AnySearch
 
 [认证](https://www.anysearch.com/docs/auth) · [MCP](https://www.anysearch.com/docs/mcp-install) · [Skill](https://www.anysearch.com/docs/skill-install)
@@ -217,7 +227,7 @@ node ponytail/scripts/cursor-hooks.js install
 
 ## 非编程（Obsidian）
 
-暂时只有这一类。
+现阶段除了 Obsidian，其余一律放编程。
 
 ### kepano 四件套
 
@@ -266,4 +276,4 @@ node ponytail/scripts/cursor-hooks.js install
 
 `npx skills add -g` 按已安装的 agent 写入对应目录，**不认 WorkBuddy** —— 要手动从上面某个目录复制（`cp -R <源>/<skill> ~/.workbuddy/skills/`），装完重启 WorkBuddy 才会加载。
 
-新增公开 skill：在「新机器安装」和对应章节（编程 / 非编程）各写一次来源、安装命令、最常用的一步。自维护的学习 skill 留在本仓库；Figma kit 只记 GitHub。
+新增条目：在「新机器安装」和对应章节（编程 / 非编程）各写一次来源、安装命令、最常用的一步。除了 Obsidian 都放编程。自维护的学习 skill 留在本仓库；Figma kit 只记 GitHub；pstack 的接法记在 `research/pstack.md`。
