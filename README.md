@@ -199,7 +199,7 @@ node ponytail/scripts/cursor-hooks.js install
 
 [认证](https://www.anysearch.com/docs/auth) · [MCP](https://www.anysearch.com/docs/mcp-install) · [Skill](https://www.anysearch.com/docs/skill-install)
 
-统一搜索，不绑某一个 agent。带 key 走付费配额；key 无效会 401/403，不会悄悄变成匿名。
+统一搜索，不绑某一个 agent。带 key 走付费配额；key 无效会 401/403，不会悄悄变成匿名。**本仓库不存 API key**；换机后重新跑脚本粘贴。key 只写到本机 `~/.anysearch/.env` 和各 skill 目录的 `.env`。
 
 ```bash
 ./scripts/install-anysearch.sh
