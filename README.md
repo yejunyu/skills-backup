@@ -28,8 +28,15 @@ npx skills add mattpocock/skills -g -y
 # 用图把当前话题讲清楚
 npx skills add https://github.com/humanlayer/skills -g -y --skill show-me
 
+# 输出风格：i-have-adhd（装了不自动生效，要显式开）
+npx skills add ayghri/i-have-adhd -g -y                        # Codex / Cursor / 通用
+cp -R ~/.cursor/skills/i-have-adhd ~/.workbuddy/skills/        # WorkBuddy：npx skills 不认，手动复制后重启
+~/.bun/bin/pi install https://github.com/ayghri/i-have-adhd    # Pi 原生包（pi 不在 PATH，二进制在 ~/.bun/bin/pi）
+
 # 自维护：学习教练（本仓库）
 # 复制 guided-code-learning/ 到 ~/.codex/skills/guided-code-learning
+# 复制 tenx-learning/ 到 ~/.codex/skills/tenx-learning
+# Cursor 再用一份：~/.cursor/skills/ 下各复制一次
 
 # 自维护：Figma 高保真还原（独立仓库）
 # git clone https://github.com/yejunyu/figma-ui-fidelity-kit.git
@@ -122,6 +129,20 @@ npx skills add RoundTable02/tutor-skills -g -y
 
 写代码时的行为约束，不用单独下命令。四条：先想清楚再写、能少就少、只改该改的、用可验证的目标收尾。小事自行判断，不必每句都走这套。
 
+#### i-have-adhd
+
+[ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd)
+
+改的是**回复的形状**，不是写代码的方法。默认装了不生效，必须显式开：
+
+- Codex：`$i-have-adhd`
+- Cursor / WorkBuddy：`/i-have-adhd`
+- Pi：`/i-have-adhd` 切换，状态栏出现 `● ADHD ON`；`pi --adhd` 直接以该模式启动；`stop adhd mode` 或 `normal mode` 关
+
+十条规则的要点：第一行就是能执行的动作；多步就编号、每步一个动作；结尾只留一个两分钟内能做的下一步；每轮重述「第 3 步 / 共 5 步」；时间给具体单位，不说「一会儿」；压住跑题，第二件事等第一件做完再单独提；错误只说位置、原因、修法；列表不超过 5 条；不要开场白和收尾客套。
+
+想默认常开：Pi 用 `touch ~/.pi/agent/.i-have-adhd-always`（或写 `~/.pi/agent/i-have-adhd.json` 的 `alwaysOn: true`）；其它 agent 把那 10 条贴进各自的 User Rules / `AGENTS.md`。常开之前先想清楚——它会一直改所有回复的语气。
+
 ### 自维护
 
 #### guided-code-learning
@@ -137,6 +158,18 @@ npx skills add RoundTable02/tutor-skills -g -y
 进度写在项目的 `.learning/<主题>/`（`COURSE.md`、`syllabus.md`、`progress.md`、`capstone.md`）。新会话先读这些文件再继续。
 
 Obsidian 知识库 + 测验用下面的 `tutor-skills`。
+
+#### tenx-learning
+
+本仓库 [`tenx-learning/`](./tenx-learning/)。复制到 `~/.codex/skills/tenx-learning`，Cursor 再复制到 `~/.cursor/skills/tenx-learning`。
+
+打开一个陌生领域，或在写文章、做决策、面试、投资、谈判、演讲之前先建立判断。说「十倍速学 xxx」或「用 STORM 看看 xxx」：
+
+1. 五视角对着检索结果互相质疑，压成一页简报，再挑刺改一版。
+2. 只留五个真实资源，标出你在五级阶梯的哪一级，把核心约 20% 排成 10 次课。
+3. 一次一题考到答不上来，费曼补缺口，最后压成一页速查表。
+
+进度写在 `~/code/learning/<主题>/` 的 `brief.md`、`path.md`、`cheatsheet.md`、`loop.md`，不写进当前仓库。和 `guided-code-learning` 分开：那个不代做、要过关才翻章；这个先搭判断和结构。要改成课程制时，阶段二之后交给 `guided-code-learning`。
 
 #### figma-ui-fidelity
 
@@ -273,6 +306,7 @@ node ponytail/scripts/cursor-hooks.js install
 | Cursor | `~/.cursor/skills` 或项目 `.cursor/skills` |
 | 通用 | `~/.agents/skills` |
 | WorkBuddy | `~/.workbuddy/skills` |
+| Pi | `~/.pi/agent/skills`；GitHub 包用 `pi install <url>`（二进制在 `~/.bun/bin/pi`，不在 PATH），登记在 `~/.pi/agent/settings.json` 的 `packages` |
 
 `npx skills add -g` 按已安装的 agent 写入对应目录，**不认 WorkBuddy** —— 要手动从上面某个目录复制（`cp -R <源>/<skill> ~/.workbuddy/skills/`），装完重启 WorkBuddy 才会加载。
 
