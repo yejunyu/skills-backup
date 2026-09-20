@@ -334,8 +334,9 @@ $P install https://github.com/ayghri/i-have-adhd
 - **状态栏只能有一个主人**。`pi-observability` 和 `@narumitw/pi-statusline` 都 `setFooter()` 替换整条 footer，装两个会互相抢。只想留状态栏就装 `pi-statusline`；要成本面板装 `pi-observability`（可用 `/obs-toggle` 只关 bar 不卸载）。
 - **同名 skill first-wins**：`~/.pi/agent/skills` > `~/.agents/skills` > package 自带。`~/.pi/agent/skills` 里指向 `~/.agents/skills` 的必须用软链，放实体副本会变成两份、且旧的那份赢。
 - **fff**：`~/.pi/agent/pi-fff.json` 写 `{"enableHomeDirScanning":true,"warnOnHomeDirScan":false}` 只静音家目录警告；写成 `false` 会在 `$HOME` 启动时直接 init 失败（`Can not run certain FFF features in a file system root or home directories`）。真要少索引就在项目目录里开 pi。
-- **本地自维护、无来源可装**：`~/.pi/agent/extensions/relay-upstream-retry.ts` + `extensions/scripts/check-relay-retry.mjs` —— 让 sub2api 中转的 `upstream_error` / `do_request_failed` 走进 pi 的自动重试。换机要手动搬这两个文件，本仓库不存。
 - `git:github.com/tmustier/pi-extensions` 一个包带 13 个 extension（含小游戏、tab-status、files-widget 等），不想要的在 `pi config` 里单独关。
+
+本机现无自写 extension（`~/.pi/agent/extensions/` 为空），32 个 extension 全部来自上面 19 个包。
 
 ---
 
