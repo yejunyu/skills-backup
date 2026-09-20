@@ -298,6 +298,47 @@ node ponytail/scripts/cursor-hooks.js install
 
 ---
 
+## Pi 插件（19 个）
+
+Pi 的 package 不等于 skill：一个包可以同时带 extension、命令和 skill。全部登记在 `~/.pi/agent/settings.json` 的 `packages`，换机逐条装：
+
+```bash
+P=~/.bun/bin/pi # pi 不在 PATH
+
+$P install npm:pi-mcp-adapter
+$P install npm:pi-web-access
+$P install npm:@dietrichgebert/ponytail
+$P install npm:@tintinweb/pi-subagents
+$P install npm:pi-simplify
+$P install npm:pi-memory
+$P install npm:@narumitw/pi-plan-mode
+$P install npm:@narumitw/pi-btw
+$P install npm:@narumitw/pi-file-context
+$P install npm:@narumitw/pi-statusline
+$P install npm:@narumitw/pi-goal
+$P install npm:pi-calm
+$P install npm:pi-hashline-edit
+$P install npm:@getpipher/vision
+$P install npm:@ff-labs/pi-fff
+$P install npm:@juicesharp/rpiv-ask-user-question
+$P install npm:@juicesharp/rpiv-todo
+$P install git:github.com/tmustier/pi-extensions
+$P install https://github.com/ayghri/i-have-adhd
+```
+
+核对与更新：`pi list`、`pi update`；单独关掉某个包里的 extension / skill 用 `pi config`，或把 `packages` 里那行写成对象形式 `{"source":"npm:xxx","skills":[]}`。
+
+装之前要知道的坑（都踩过）：
+
+- **`/goal` 只能有一个主人**。`pi-goal-list-loop-audit` 和 `@narumitw/pi-goal` 都注册 `goal`，pi 遇到重名会给**两个都**加后缀（`/goal:1`、`/goal:2`），裸 `/goal` 直接失效。现在只装后者（前者带 `/list`、`/loop`、审计，要它就删掉 `@narumitw/pi-goal`）。
+- **状态栏只能有一个主人**。`pi-observability` 和 `@narumitw/pi-statusline` 都 `setFooter()` 替换整条 footer，装两个会互相抢。只想留状态栏就装 `pi-statusline`；要成本面板装 `pi-observability`（可用 `/obs-toggle` 只关 bar 不卸载）。
+- **同名 skill first-wins**：`~/.pi/agent/skills` > `~/.agents/skills` > package 自带。`~/.pi/agent/skills` 里指向 `~/.agents/skills` 的必须用软链，放实体副本会变成两份、且旧的那份赢。
+- **fff**：`~/.pi/agent/pi-fff.json` 写 `{"enableHomeDirScanning":true,"warnOnHomeDirScan":false}` 只静音家目录警告；写成 `false` 会在 `$HOME` 启动时直接 init 失败（`Can not run certain FFF features in a file system root or home directories`）。真要少索引就在项目目录里开 pi。
+- **本地自维护、无来源可装**：`~/.pi/agent/extensions/relay-upstream-retry.ts` + `extensions/scripts/check-relay-retry.mjs` —— 让 sub2api 中转的 `upstream_error` / `do_request_failed` 走进 pi 的自动重试。换机要手动搬这两个文件，本仓库不存。
+- `git:github.com/tmustier/pi-extensions` 一个包带 13 个 extension（含小游戏、tab-status、files-widget 等），不想要的在 `pi config` 里单独关。
+
+---
+
 ## 装到哪里
 
 | Agent | 路径 |
